@@ -1,6 +1,7 @@
 package com.hospital_app.hospital_appt.controller;
 
 import com.hospital_app.hospital_appt.ExceptionHandeling.ResourceNotFoundException;
+import com.hospital_app.hospital_appt.Notification.NotificationService;
 import com.hospital_app.hospital_appt.model.Appointment;
 import com.hospital_app.hospital_appt.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,14 @@ public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
 
+    @Autowired
+    private NotificationService notificationService;
+
 
     @PostMapping
     public ResponseEntity<Appointment> createAppointment(@RequestBody Appointment appointment, @RequestParam Long patientId) throws ResourceNotFoundException {
         Appointment createdAppointment = appointmentService.createAppointment(appointment, patientId);
+        notificationService.sendAppointmentConfirmation(createdAppointment);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdAppointment);
     }
 

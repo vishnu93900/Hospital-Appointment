@@ -3,6 +3,10 @@ package com.hospital_app.hospital_appt.controller;
 import com.hospital_app.hospital_appt.ExceptionHandeling.ResourceNotFoundException;
 import com.hospital_app.hospital_appt.model.Patient;
 import com.hospital_app.hospital_appt.service.PatientService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +48,12 @@ public class PatientController {
         }
     }
 
+    @Operation(summary = "Getting All Patients",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "we got the all Patients successfully",
+                            content = @Content(schema = @Schema(implementation = Patient.class))),
+                    @ApiResponse(responseCode = "400", description = "Invalid input")
+            })
     @GetMapping
     public List<Patient> getAllPatients(){
         return patientService.getAllPatients();
