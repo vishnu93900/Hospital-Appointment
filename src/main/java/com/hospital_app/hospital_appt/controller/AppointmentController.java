@@ -31,12 +31,17 @@ public class AppointmentController {
 
     @GetMapping
     public List<Appointment> getAllapp(){
-        return appointmentService.getAllAppointments();
+        List<Appointment> appointments= appointmentService.getAllAppointments();
+        notificationService.sendAppointmentConfirmation((Appointment) appointments);
+        return  appointments;
+
+
     }
     @PutMapping("/{id}")
     public ResponseEntity<?> updateAppointment(@PathVariable Long id, @RequestBody Appointment updatedAppointment) {
         try {
             Appointment appointment = appointmentService.updateAppointment(id, updatedAppointment);
+            notificationService.sendAppointmentConfirmation((appointment));
             return ResponseEntity.ok(appointment);
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);

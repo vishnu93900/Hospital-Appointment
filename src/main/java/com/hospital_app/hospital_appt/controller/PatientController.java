@@ -27,6 +27,12 @@ public class PatientController {
         return  new ResponseEntity<>(newPatient, HttpStatus.CREATED);
 
     }
+    @Operation(summary = "Getting Patients by their ID",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "we got the  Patients by their ID successfully",
+                            content = @Content(schema = @Schema(implementation = Patient.class))),
+                    @ApiResponse(responseCode = "400", description = "Invalid input")
+            })
     @GetMapping("/{patientId}")
     public ResponseEntity<?> getPatientById(@PathVariable Long patientId) throws ResourceNotFoundException {
         try {
@@ -37,6 +43,12 @@ public class PatientController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
         }
     }
+    @Operation(summary = "Updating...Patients Details",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Patients details updated successfully",
+                            content = @Content(schema = @Schema(implementation = Patient.class))),
+                    @ApiResponse(responseCode = "400", description = "Invalid input")
+            })
     @PutMapping("{patientId}")
     public ResponseEntity<?> UpdatePatientById(@PathVariable Long patientId , @RequestBody Patient updatingPatient) throws ResourceNotFoundException {
         try {
