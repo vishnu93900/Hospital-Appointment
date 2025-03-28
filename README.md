@@ -29,11 +29,11 @@ Here are some of the core API endpoints:
 
 **Patient Management**
 
-GET /api/patients - Retrieve all patients,
-POST /api/patients - Add a new patient
-GET /api/patients/{id} - Retrieve a patient by ID
-PUT /api/patients/{id} - Update a patient by ID
-DELETE /api/patients/{id} - Delete a patient by ID
+>GET /api/patients - Retrieve all patients,
+>POST /api/patients - Add a new patient
+>GET /api/patients/{id} - Retrieve a patient by ID
+>PUT /api/patients/{id} - Update a patient by ID
+>DELETE /api/patients/{id} - Delete a patient by ID
 
 **Appointment Management**
 GET /api/appointments - Retrieve all appointments
